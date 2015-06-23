@@ -1,0 +1,30 @@
+{
+  "name": "mvp-funnel",
+  "version": "0.0.0",
+  "description": "mvp-funnel",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmnr/mvp-funnel.git"
+  },
+  "keywords": [
+    "mvp",
+    "funnel",
+    "sales"
+  ],
+  "author": "josh michelle ronan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmnr/mvp-funnel/issues"
+  },
+  "dependencies": {
+    "handlebars": "^3.0.3",
+    "hapi": "^8.6.1",
+    "redis": "^0.12.1"
+  },
+  "homepage": "https://github.com/jmnr/mvp-funnel#readme"
+}
