@@ -4,18 +4,6 @@ var mandrill = require('./mandrill.js');
 function handlers() {
   return {
 
-    sendData: function (request, reply) {
-      redis.create(request.payload, function(err, data) {
-        if (err) {
-          console.log(err);
-        } else {
-          reply(data);
-          mandrill.sendEmail(request);
-          console.log("Added to redis");
-        }
-      });
-    },
-
     settingsSubmit: function (request, reply) {
       var settings = request.payload;
       if(settings.indexOf("<") > -1 || settings.indexOf(">") > -1) {
