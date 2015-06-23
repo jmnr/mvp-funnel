@@ -23,8 +23,10 @@
   },
   "dependencies": {
     "bell": "^4.0.0",
+    "github": "^0.2.4",
     "handlebars": "^3.0.3",
     "hapi": "^8.6.1",
+    "hapi-auth-cookie": "^3.0.1",
     "redis": "^0.12.1"
   },
   "homepage": "https://github.com/jmnr/mvp-funnel#readme"
