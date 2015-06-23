@@ -1,3 +1,5 @@
+// IMPORTANT: run 'npm install github' or none of this will work
+
 var GitHubApi = require("github");
 
 var github = new GitHubApi({
@@ -14,12 +16,23 @@ var github = new GitHubApi({
     }
 });
 
-github.user.getFollowingFromUser({
-    // optional:
-    // headers: {
-    //     "cookie": "blahblah"
-    // },
-    user: "joshpitzalis"
+github.authenticate({
+    type: "oauth",
+    key: "clientID",
+    secret: "b22fe8aac0b12cdc53a7e54dc81f6c7b5f0685e1"
+})
+
+github.repos.getContent({
+
+    // headers: Optional. Key/ value pair of request headers to pass along with the HTTP request.
+    // Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+    // id: 37860032,
+    user : "jmnr",
+    repo : "mvp-funnel",
+    // content: "monkey",
+    // message: "remote content write test",
+    path : "README.md",
+    ref : "github"
 }, function(err, res) {
-    console.log(JSON.stringify(res));
+    console.log(res);
 });
