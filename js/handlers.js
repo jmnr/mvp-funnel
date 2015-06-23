@@ -15,7 +15,7 @@ function handlers() {
     },
 
     settingsSubmit: function (request, reply) {
-      redis.set("home", request.payload, function(err, data) {
+      redis.set("home", JSON.parse(request.payload), function(err, data) {
         if (err) {
           console.log(err);
         } else {

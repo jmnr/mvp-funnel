@@ -1,6 +1,9 @@
 $("#submit").click(function(){
-  var dataArray = document.getElementsByTagName("textarea");
-  console.log(dataArray);
+  var dataObj = {};
+  var dataArray = [].slice.call(document.getElementsByTagName("textarea"));
+  dataArray.forEach(function(x) { 
+    dataObj['div' + Object.keys(dataObj).length] = x.value;
+  });
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/settingsSubmit");
   xhr.onreadystatechange = function(){
@@ -13,5 +16,5 @@ $("#submit").click(function(){
       }
     }
   };
-  // xhr.send(dataArray);
+  xhr.send(JSON.stringify(dataObj));
 });

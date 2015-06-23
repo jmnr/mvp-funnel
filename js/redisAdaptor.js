@@ -27,14 +27,6 @@ var redisAdaptor = function (config) {
 
   return {
 
-    create: function(formData, callback) {
-      client.select(0, function() {
-        client.hmset(addID(), formData, function(err){
-          callback(err);
-        });
-      });
-    },
-
     get: function(key, callback) {
       client.select(0, function() {
         client.hgetall(key, function(err, data){
@@ -49,7 +41,7 @@ var redisAdaptor = function (config) {
 
     set: function(key, value, callback) {
       client.select(0, function() {
-        client.set(key, value, function(err, data){
+        client.hmset(key, value, function(err, data){
           if(err) {
             throw err;
           } else {
