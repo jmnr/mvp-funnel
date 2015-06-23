@@ -4,12 +4,17 @@ module.exports = [
   {
     method: 'GET',
     path: '/',
-    handler: handlers.handlebarsGet
+    handler: handlers.loadHome
+  },
+  {
+    method: 'GET',
+    path: '/settings',
+    handler: handlers.loadSettings
   },
   {
     method: 'POST',
-    path: '/submit',
-    handler: handlers.sendData
+    path: '/settingsSubmit',
+    handler: handlers.settingsSubmit
   },
   { //route for all css, images and js files
     method: 'GET',
