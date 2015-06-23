@@ -33,11 +33,11 @@ var redisAdaptor = function (config) {
           callback(err);
         });
       });
-    }, //database 0 is for our metadata
+    },
 
     get: function(key, callback) {
       client.select(0, function() {
-        client.get(key, function(err, data){
+        client.hgetall(key, function(err, data){
           if(err) {
             throw err;
           } else {

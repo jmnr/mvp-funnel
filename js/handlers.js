@@ -15,7 +15,7 @@ function handlers() {
     },
 
     settingsSubmit: function (request, reply) {
-      redis.set("test123", request.payload, function(err, data) {
+      redis.set("home", request.payload, function(err, data) {
         if (err) {
           console.log(err);
         } else {
@@ -25,22 +25,37 @@ function handlers() {
       });
     },
 
-    handlebarsGet: function (request, reply) {
-      redis.get("test123", function(err, data) {
+    loadHome: function (request, reply) {
+      var divs = '';
+      redis.get("home", function(err, data) {
         if (err) {
           console.log(err);
         } else {
-          reply.view("index", {home: data});
+          for(var x in data) {
+            divs += 
+              '<div>' +
+                '<p>' + data[x] + '</p>' +
+                '<textarea></textarea>' +
+              '</div>';
+          }
+          reply.view("index", {body: divs});
         }
       });
     },
 
-    getSettings: function (request, reply) {
-      redis.get("test123", function(err, data) {
+    loadSettings: function (request, reply) {
+      var divs = '';
+      redis.get("home", function(err, data) {
         if (err) {
           console.log(err);
         } else {
-          reply.view("settings", {input: data});
+          for(var x in data) {
+            divs += 
+              '<div>' +
+                '<textarea>' + data[x] + '</textarea>' +
+              '</div>';
+          }
+          reply.view("settings", {body: divs});
         }
       });
     }
