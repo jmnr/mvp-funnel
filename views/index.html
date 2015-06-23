@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>mvp-funnel</title>
+  <title>HOME</title>
+  <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
-  <p>Hello {{name}}</p>
-  <div class="input">
-    <h1 id="question">{{questionOne}}</h1>
+  <div id="content">
+    <p>Hello {{name}}</p>
+    <h1 id="question">{{question}}</h1>
     <input type="text" id="userText"/>
     <button id="submit">SUBMIT</button>
+    <!-- <p>{{home}}</p> -->
+    <a href="/settings">SETTINGS</a>
   </div>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/script.js"></script>

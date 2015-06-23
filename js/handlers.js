@@ -4,13 +4,46 @@ function handlers() {
   return {
 
     sendData: function (request, reply) {
+      // reply.view("index", {name: "michelle!", questionOne: "What are you looking fooor?"});
       redis.create(request.payload, function(err, data) {
-        reply(data);
+        if (err) {
+          console.log(err);
+        } else {
+          reply(data);
+          console.log("Added to redis");
+        }
+      });
+    },
+
+    settingsSubmit: function (request, reply) {
+      redis.set("test123", request.payload, function(err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          reply(data);
+          console.log("Settings changed");
+        }
       });
     },
 
     handlebarsGet: function (request, reply) {
-      reply.view("index", {name: "michelle!", questionOne: "What are you looking for?", questionTwo: "Do you want a designer or a developer?"});
+      redis.get("test123", function(err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          reply.view("index", {name: "michelle", question: "hey?"});
+        }
+      });
+    },
+
+    getSettings: function (request, reply) {
+      redis.get("test123", function(err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          reply.view("settings", {input: data});
+        }
+      });
     }
 
   };
