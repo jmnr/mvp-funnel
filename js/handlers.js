@@ -13,8 +13,8 @@ function handlers() {
         if (err) {
           console.log(err);
         } else {
-          reply(data);
-          console.log("Settings changed");
+          console.log("Settings submitted!");
+          reply(true);
         }
       });
     },

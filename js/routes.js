@@ -4,6 +4,13 @@ module.exports = [
   {
     method: 'GET',
     path: '/',
+    handler: function(request, reply) {
+      reply.redirect("home");
+    }
+  },
+  {
+    method: 'GET',
+    path: '/home',
     handler: handlers.loadHome
   },
   {

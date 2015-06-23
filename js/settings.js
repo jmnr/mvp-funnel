@@ -9,7 +9,8 @@ $("#submit").click(function(){
   xhr.onreadystatechange = function(){
     if(xhr.readyState === 4){
       if(xhr.status === 200){
-        alert("Updated!");
+        console.log("Updated!");
+        window.location.replace("/");
       }
       else{
         alert("Error");
@@ -30,4 +31,8 @@ $("#add").click(function(){
       '</textarea>' +
     '</div>'
   );
+});
+
+$("#home").click(function(){
+  window.location.replace("/");
 });
