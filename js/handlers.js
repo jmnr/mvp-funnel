@@ -10,7 +10,7 @@ function handlers() {
     },
 
     handlebarsGet: function (request, reply) {
-      reply.view("index", {home: "world!"});
+      reply.view("index", {name: "michelle!", questionOne: "What are you looking for?", questionTwo: "Do you want a designer or a developer?"});
     }
 
   };
