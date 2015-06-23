@@ -5,7 +5,6 @@ function handlers() {
   return {
 
     sendData: function (request, reply) {
-      // reply.view("index", {name: "michelle!", questionOne: "What are you looking fooor?"});
       redis.create(request.payload, function(err, data) {
         if (err) {
           console.log(err);
@@ -18,7 +17,11 @@ function handlers() {
     },
 
     settingsSubmit: function (request, reply) {
-      redis.set("home", JSON.parse(request.payload), function(err, data) {
+      var settings = request.payload;
+      if(settings.indexOf("<") > -1 || settings.indexOf(">") > -1) {
+        settings = settings.replace(/</g, "&lt").replace(/>/g, "&gt");
+      }
+      redis.set("home", JSON.parse(settings), function(err, data) {
         if (err) {
           console.log(err);
         } else {
