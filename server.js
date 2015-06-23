@@ -2,7 +2,7 @@ var hapi = require('hapi'),
     path = require('path'),
     server = new hapi.Server();
 
-server.connection({ port: process.env.PORT });
+server.connection({ port: process.env.PORT || 8000 });
 
 server.views({
   engines: {
