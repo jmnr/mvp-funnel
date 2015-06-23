@@ -1,4 +1,5 @@
 var GitHubApi = require("github");
+var Config = require('./tokens.json');
 
 var github = new GitHubApi({
     // required
@@ -16,15 +17,8 @@ var github = new GitHubApi({
 
 github.authenticate({
     type: "oauth",
-    token: "8a1d08c6126201302142c39078ab7d47c8eab2c1"
-    // "d236c7523ec4b5b91b4689dfaf619a50206a9672"
-});
-
-github.authenticate({
-    type: "oauth",
-    key: "639ce8f90b60a61055ac",
-    secret: "b22fe8aac0b12cdc53a7e54dc81f6c7b5f0685e1"
-});
+    token: Config.auth.github.token,
+    });
 
 github.repos.createFile({
 
@@ -34,8 +28,8 @@ github.repos.createFile({
     user : "jmnr",
     repo : "mvp-funnel",
     content: "bW9ua2V5",
-    message: "remote content write test",
-    path : "test.md",
+    message: "remote content write test6",
+    path : "test6.md",
     branch : "github",
 }, function(err, res) {
     console.log(res);
