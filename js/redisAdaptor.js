@@ -15,9 +15,7 @@ var redisAdaptor = function (config) {
     return ID;
   };
 
-  if(process.env.REDIS_CHECK === "local") {
-    client = redis.createClient();
-  } else if (process.env.REDIS_URL) {
+  if (process.env.REDIS_URL) {
     var redisURL = url.parse(process.env.REDIS_URL);
     client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
     client.auth(redisURL.auth.split(":")[1]);
@@ -26,14 +24,6 @@ var redisAdaptor = function (config) {
   }
 
   return {
-
-    create: function(formData, callback) {
-      client.select(0, function() {
-        client.hmset(addID(), formData, function(err){
-          callback(err);
-        });
-      });
-    },
 
     get: function(key, callback) {
       client.select(0, function() {
@@ -49,7 +39,7 @@ var redisAdaptor = function (config) {
 
     set: function(key, value, callback) {
       client.select(0, function() {
-        client.set(key, value, function(err, data){
+        client.hmset(key, value, function(err, data){
           if(err) {
             throw err;
           } else {

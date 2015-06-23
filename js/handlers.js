@@ -1,4 +1,5 @@
 var redis = require('./redisAdaptor')({connection: require('redis')});
+var mandrill = require('./mandrill.js');
 
 function handlers() {
   return {
@@ -10,13 +11,14 @@ function handlers() {
           console.log(err);
         } else {
           reply(data);
+          mandrill.sendEmail(request);
           console.log("Added to redis");
         }
       });
     },
 
     settingsSubmit: function (request, reply) {
-      redis.set("home", request.payload, function(err, data) {
+      redis.set("home", JSON.parse(request.payload), function(err, data) {
         if (err) {
           console.log(err);
         } else {
@@ -34,7 +36,7 @@ function handlers() {
         } else {
           for(var x in data) {
             divs +=
-              '<div>' +
+              '<div class="textbox">' +
                 '<p>' + data[x] + '</p>' +
                 '<textarea></textarea>' +
               '</div>';
