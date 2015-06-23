@@ -7,6 +7,16 @@ module.exports = [
     handler: handlers.handlebarsGet
   },
   {
+    method: 'GET',
+    path: '/settings',
+    handler: handlers.getSettings
+  },
+  {
+    method: 'POST',
+    path: '/settingsSubmit',
+    handler: handlers.settingsSubmit
+  },
+  {
     method: 'POST',
     path: '/submit',
     handler: handlers.sendData
