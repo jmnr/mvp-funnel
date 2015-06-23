@@ -20,11 +20,11 @@ $("#submit").click(function(){
 });
 
 $("#subtract").click(function(){
-  $("#inputArea div:last-child").remove();
+  $("#content div:last-child").remove();
 });
 
 $("#add").click(function(){
-  $("#inputArea").append(
+  $("#content").append(
     '<div>' +
       '<textarea>' +
       '</textarea>' +
