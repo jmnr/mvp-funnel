@@ -4,12 +4,12 @@ module.exports = [
   {
     method: 'GET',
     path: '/',
-    handler: handlers.handlebarsGet
+    handler: handlers.loadHome
   },
   {
     method: 'GET',
     path: '/settings',
-    handler: handlers.getSettings
+    handler: handlers.loadSettings
   },
   {
     method: 'POST',

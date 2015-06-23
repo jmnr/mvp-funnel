@@ -1,10 +1,17 @@
 
-console.log("hi");
-
 $("#submit").click(function(){
-  console.log("yo");
-  var data = document.getElementById("userText").value;
-	var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/submit");
-  xhr.send(data);
+  var dataArray = document.getElementsByTagName("textarea").value;
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/settingsSubmit");
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState === 4){
+      if(xhr.status === 200){
+        alert("Updated!");
+      }
+      else{
+        alert("Error");
+      }
+    }
+  };
+  xhr.send(dataArray);
 });
