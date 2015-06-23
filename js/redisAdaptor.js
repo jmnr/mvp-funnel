@@ -39,12 +39,14 @@ var redisAdaptor = function (config) {
 
     set: function(key, value, callback) {
       client.select(0, function() {
-        client.hmset(key, value, function(err, data){
-          if(err) {
-            throw err;
-          } else {
-            callback(err, data);
-          }
+        client.del(key, function() {
+          client.hmset(key, value, function(err, data){
+            if(err) {
+              throw err;
+            } else {
+              callback(err, data);
+            }
+          });
         });
       });
     }

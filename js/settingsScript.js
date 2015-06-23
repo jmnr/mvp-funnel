@@ -18,3 +18,16 @@ $("#submit").click(function(){
   };
   xhr.send(JSON.stringify(dataObj));
 });
+
+$("#subtract").click(function(){
+  $("#inputArea div:last-child").remove();
+});
+
+$("#add").click(function(){
+  $("#inputArea").append(
+    '<div>' +
+      '<textarea>' +
+      '</textarea>' +
+    '</div>'
+  );
+});
