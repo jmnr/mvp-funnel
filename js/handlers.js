@@ -1,5 +1,36 @@
-var redis = require('./redisAdaptor')({connection: require('redis')});
-var mandrill = require('./mandrill.js');
+var redis = require('./redisAdaptor')({connection: require('redis')}),
+    mandrill = require('./mandrill.js'),
+    gitHubApi = require("github");
+
+function encodeBase64(text) {
+  var u;
+  var e = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  if (0 === text.length) {
+    return 'ENTER SOME TEXT!';
+  }
+  var n, a = [];
+  if (/([^\u0000-\u00ff])/.test(text) || void 0 === text) {
+    return 'INPUT ASCII CHARACTERS ONLY!';
+  }
+  for (var o = 0; o < text.length; o++) {
+    var i = text.charCodeAt(o);
+    u = o % 3;
+    switch (u) {
+      case 0:
+        a.push(e.charAt(i >> 2));
+        break;
+      case 1:
+        a.push(e.charAt((3 & n) << 4 | i >> 4));
+        break;
+      case 2:
+        a.push(e.charAt((15 & n) << 2 | i >> 6));
+        a.push(e.charAt(63 & i));
+    }
+    n = i;
+  }
+  return 0 === u ? (a.push(e.charAt((3 & n) << 4)), a.push("==")) : 1 ===
+    u && (a.push(e.charAt((15 & n) << 2)), a.push("=")), a.join("");
+}
 
 function handlers() {
   return {
@@ -17,6 +48,43 @@ function handlers() {
           reply(true);
         }
       });
+    },
+
+    mvpSubmit: function (request, reply) {
+      var github = new gitHubApi({
+        // required
+        version: "3.0.0",
+        // optional
+        debug: true,
+        protocol: "https",
+        host: "api.github.com", // should be api.github.com for GitHub
+        // pathPrefix: "/api/v3", // for some GHEs; none for GitHub
+        timeout: 5000,
+        headers: {
+          "user-agent": "mvp-funnel-App" // GitHub is happy with a unique user agent
+        }
+      });
+
+      github.authenticate({
+        type: "oauth",
+        token: process.env.TOKEN
+      });
+
+      github.repos.createFile({
+        // headers: Optional. Key/ value pair of request headers to pass along with the HTTP request.
+        // Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+        // id: 37860032,
+        user : "jmnr",
+        repo : "mvp-funnel",
+        content: encodeBase64(request.payload),
+        message: "JC 2",
+        path : "bigJC.md",
+        branch : "master",
+      }, function(err, res) {
+        console.log("sent monkey");
+      });
+
+      reply(true);
     },
 
     loadHome: function (request, reply) {
