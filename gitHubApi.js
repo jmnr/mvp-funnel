@@ -29,7 +29,7 @@ github.repos.createFile({
     repo : "mvp-funnel",
     content: "bW9ua2V5",
     message: "remote content write test6",
-    path : "test6.md",
+    path : "test7.md",
     branch : "github",
 }, function(err, res) {
     console.log(res);
