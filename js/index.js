@@ -5,21 +5,29 @@ $("#settings").click(function(){
 $("#submit").click(function(){
   var dataObj = {};
   var dataArray = [].slice.call(document.getElementsByTagName("textarea"));
-  dataArray.forEach(function(x) { 
-    dataObj['div' + Object.keys(dataObj).length] = x.value;
-  });
+  var questionArray = [].slice.call(document.getElementsByTagName("p"));
+
+  for(var i = 0; i < dataArray.length; i++ ) {
+    dataObj['data' + i] = {
+      question: dataArray[i].value,
+      content: questionArray[i].value
+    };
+  }
+  console.log(dataObj);
+  // dataArray.forEach(function(x) {
+  //   dataObj['data' + Object.keys(dataObj).length] = x.value;
+  // });
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/settingsSubmit");
+  xhr.open("POST", "/mvpSubmit");
   xhr.onreadystatechange = function(){
     if(xhr.readyState === 4){
       if(xhr.status === 200){
-        console.log("Updated!");
-        window.location.replace("/");
+        alert("Sent!");
       }
       else{
         alert("Error");
       }
     }
   };
-  xhr.send(JSON.stringify(dataObj));
+  // xhr.send(JSON.stringify(dataObj));
 });
