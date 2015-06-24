@@ -11,7 +11,7 @@ function handlers() {
           console.log(err);
         } else {
           reply(data);
-          mandrill.sendEmail(request);
+
           console.log("Added to redis");
         }
       });
@@ -22,6 +22,8 @@ function handlers() {
         if (err) {
           console.log(err);
         } else {
+          mandrill.sendEmail(request);
+          console.log("hello");
           reply(data);
           console.log("Settings changed");
         }

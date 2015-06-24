@@ -13,6 +13,11 @@ module.exports = [
   },
   {
     method: 'POST',
+    path: '/sendData',
+    handler: handlers.sendData
+  },
+  {
+    method: 'POST',
     path: '/settingsSubmit',
     handler: handlers.settingsSubmit
   },
