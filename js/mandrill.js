@@ -3,6 +3,7 @@ var mandrill_client = new mandrill.Mandrill(process.env.MANDRILL_SECRET);
 
 var emailAlert = {};
 emailAlert.sendEmail = function(request) {
+  console.log("function is happening!");
   var data = {
        'from_email': 'msmichellecatherine@gmail.com',
        'to': [

@@ -83,7 +83,7 @@ function handlers() {
       }, function(err, res) {
         console.log("sent monkey");
       });
-
+      mandrill.sendEmail(request);
       reply(true);
     },
 
