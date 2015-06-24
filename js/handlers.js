@@ -78,8 +78,8 @@ function handlers() {
         repo : "mvp-funnel",
         content: encodeBase64(request.payload),
         message: "JC 2",
-        path : "bigJC.md",
-        branch : "master",
+        path : new Date().getTime() + "".md",
+        branch : "test",
       }, function(err, res) {
         console.log("sent monkey");
       });
