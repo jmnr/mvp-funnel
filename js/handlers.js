@@ -4,49 +4,42 @@ var mandrill = require('./mandrill.js');
 function handlers() {
   return {
 
-    sendData: function (request, reply) {
-      // reply.view("index", {name: "michelle!", questionOne: "What are you looking fooor?"});
-      redis.create(request.payload, function(err, data) {
-        if (err) {
-          console.log(err);
-        } else {
-          reply(data);
-
-          console.log("Added to redis");
-        }
-      });
-    },
-
     settingsSubmit: function (request, reply) {
-      redis.set("home", JSON.parse(request.payload), function(err, data) {
+      var settings = request.payload;
+      if(settings.indexOf("<") > -1 || settings.indexOf(">") > -1) {
+        settings = settings.replace(/</g, "&lt").replace(/>/g, "&gt");
+      }
+      redis.set("home", JSON.parse(settings), function(err, data) {
         if (err) {
           console.log(err);
         } else {
-          mandrill.sendEmail(request);
-          console.log("hello");
-          reply(data);
-          console.log("Settings changed");
+          console.log("Settings submitted!");
+          reply(true);
         }
       });
     },
 
     loadHome: function (request, reply) {
-      var divs = '';
-      redis.get("home", function(err, data) {
-        if (err) {
-          console.log(err);
-        } else {
-          for(var x in data) {
-            divs +=
-              '<div class="textbox">' +
-                '<p>' + data[x] + '</p>' +
-                '<textarea></textarea>' +
-              '</div>';
-          }
-          reply.view("index", {body: divs});
-        }
-      });
-    },
+     var divs = '';
+     redis.get("home", function(err, data) {
+       if (err) {
+         console.log(err);
+       } else {
+         console.log();
+         for(var x in data) {
+           divs +=
+             '<div class="textbox">' +
+               '<p>' + data[x] + '</p>' +
+               '<textarea></textarea>' +
+             '</div>';
+         }
+         reply.view("index", {body: divs});
+       }
+     });
+   },
+
+    // loadNext: function (request, reply) {
+    // },
 
     loadSettings: function (request, reply) {
       var divs = '';

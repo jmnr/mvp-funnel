@@ -3,7 +3,7 @@
 }*/
 
 body {
-  background-color: #94D4FF;
+  background-color: #717B7F;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -15,21 +15,17 @@ body {
 }
 
 .button {
-  background-color: grey;
+  background-color: #333333;
   border: none;
   color: white;
   cursor: pointer;
-  display: block;
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
   margin: 5px auto;
   padding: 8px;
 }
 
 .button:hover {
-  /*background-color: #94D4FF;*/
-  -webkit-transform: scale(1.1);
-  -moz-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  -o-transform: scale(1.1);
-  transform: scale(1.1);
+  background-color: #48acb5;
 }

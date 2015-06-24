@@ -24,6 +24,7 @@
   "dependencies": {
     "handlebars": "^3.0.3",
     "hapi": "^8.6.1",
+    "mandrill-api": "^1.0.45",
     "redis": "^0.12.1"
   },
   "homepage": "https://github.com/jmnr/mvp-funnel#readme"

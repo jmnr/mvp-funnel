@@ -4,17 +4,19 @@ module.exports = [
   {
     method: 'GET',
     path: '/',
+    handler: function(request, reply) {
+      reply.redirect("home");
+    }
+  },
+  {
+    method: 'GET',
+    path: '/home',
     handler: handlers.loadHome
   },
   {
     method: 'GET',
     path: '/settings',
     handler: handlers.loadSettings
-  },
-  {
-    method: 'POST',
-    path: '/sendData',
-    handler: handlers.sendData
   },
   {
     method: 'POST',

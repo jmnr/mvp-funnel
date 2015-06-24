@@ -1,0 +1,57 @@
+/** {
+  border: black solid 2px;
+}*/
+
+body {
+  background-color: #717B7F;
+  font-family: 'Raleway', sans-serif;
+}
+
+textarea {
+  width: 400px;
+  height: 75px;
+}
+
+#content {
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+textarea {
+  font-family: 'Raleway', sans-serif;
+  padding: 5px;
+}
+
+#add, #subtract {
+  display: inline-block;
+}
+
+#home, #submit {
+  display: inline-block;
+}
+
+.button {
+  background-color: #333333;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  margin: 5px auto;
+  padding: 8px;
+}
+
+.button:hover {
+  background-color: #48acb5;
+}
+
+@media (max-width: 700px) {
+
+  textarea {
+    width: 250px;
+  }
+
+}

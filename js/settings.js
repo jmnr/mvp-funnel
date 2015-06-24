@@ -9,7 +9,8 @@ $("#submit").click(function(){
   xhr.onreadystatechange = function(){
     if(xhr.readyState === 4){
       if(xhr.status === 200){
-        alert("Updated!");
+        console.log("Updated!");
+        window.location.replace("/");
       }
       else{
         alert("Error");
@@ -20,14 +21,18 @@ $("#submit").click(function(){
 });
 
 $("#subtract").click(function(){
-  $("#inputArea div:last-child").remove();
+  $("#content div:last-child").remove();
 });
 
 $("#add").click(function(){
-  $("#inputArea").append(
+  $("#content").append(
     '<div>' +
       '<textarea>' +
       '</textarea>' +
     '</div>'
   );
+});
+
+$("#home").click(function(){
+  window.location.replace("/");
 });
