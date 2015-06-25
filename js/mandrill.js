@@ -20,6 +20,7 @@ var emailAlert = {
        console.log("Error " + e.message);
     });
   }
+
 };
 
 module.exports = emailAlert;

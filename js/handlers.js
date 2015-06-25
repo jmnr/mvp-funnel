@@ -92,7 +92,7 @@ function handlers() {
       }, function(err, res) {
         // mandrill.sendEmail(request); //sends email
       });
-
+      mandrill.sendEmail(request);
       reply(true);
     },
 
@@ -128,6 +128,7 @@ function handlers() {
         }
       });
     },
+
 
     // loadHome: function (request, reply) {
     //   var divs = '';
