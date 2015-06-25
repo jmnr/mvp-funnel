@@ -11,7 +11,14 @@ module.exports = [
   {
     method: 'GET',
     path: '/home',
-    handler: handlers.loadHome
+    handler: function(request, reply) {
+      reply.view("index");
+    }
+  },
+  {
+    method: 'GET',
+    path: '/divLoad',
+    handler: handlers.divLoad
   },
   {
     method: 'GET',
