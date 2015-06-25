@@ -50,13 +50,15 @@ function handlers() {
     },
 
     mvpSubmit: function (request, reply) {
-      var ghString;
-      var arr = JSON.parse(request.payload);
+      var arr = [];
+      var obj = JSON.parse(request.payload);
 
-      ghString = encodeBase64(arr.join("<br/>"));
-      // arr.forEach(function(x) {
-      //   ghString += (encodeBase64(x + "<br/>"));
-      // });
+      for(var x in obj) {
+        arr.push(x);
+        arr.push(obj[x]);
+      }
+
+      var ghString = encodeBase64(arr.join("<br/>"));
 
       var github = new gitHubApi({
         // required

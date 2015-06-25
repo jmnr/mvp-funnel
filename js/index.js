@@ -26,7 +26,7 @@ $('body').on('click', '#settings', function(){
   window.location.replace("/settings");
 });
 
-$("#submit").click(function(){
+$('body').on('click', '#submit', function(){
   // var questionArray = [].slice.call(document.getElementsByTagName("p")),
   //     contentArray = [].slice.call(document.getElementsByTagName("textarea"));
 
@@ -35,7 +35,6 @@ $("#submit").click(function(){
   //   dataObj.push(contentArray[i].value);
   // }
   // console.log(dataObj);
-  dataUpdate();
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/mvpSubmit");
@@ -49,7 +48,7 @@ $("#submit").click(function(){
       }
     }
   };
-
+  console.log(dataObj);
   xhr.send(JSON.stringify(dataObj));
 });
 
