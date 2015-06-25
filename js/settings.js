@@ -1,7 +1,7 @@
 $("#submit").click(function(){
   var dataObj = {};
   var dataArray = [].slice.call(document.getElementsByTagName("textarea"));
-  dataArray.forEach(function(x) { 
+  dataArray.forEach(function(x) {
     dataObj['div' + Object.keys(dataObj).length] = x.value;
   });
   var xhr = new XMLHttpRequest();

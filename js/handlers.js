@@ -2,35 +2,34 @@ var redis = require('./redisAdaptor')({connection: require('redis')}),
     mandrill = require('./mandrill.js'),
     gitHubApi = require("github");
 
-function encodeBase64(text) {
-  var u;
-  var e = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-  if (0 === text.length) {
-    return 'ENTER SOME TEXT!';
-  }
-  var n, a = [];
-  if (/([^\u0000-\u00ff])/.test(text) || void 0 === text) {
-    return 'INPUT ASCII CHARACTERS ONLY!';
-  }
-  for (var o = 0; o < text.length; o++) {
-    var i = text.charCodeAt(o);
-    u = o % 3;
-    switch (u) {
-      case 0:
-        a.push(e.charAt(i >> 2));
-        break;
-      case 1:
-        a.push(e.charAt((3 & n) << 4 | i >> 4));
-        break;
-      case 2:
-        a.push(e.charAt((15 & n) << 2 | i >> 6));
-        a.push(e.charAt(63 & i));
+var encodeBase64 = function (t){
+    var u;
+    var e =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    if (0 === t.length) return 'ENTER SOME TEXT!';
+    var n, a = [];
+    if (/([^\u0000-\u00ff])/.test(t) || void 0 === t) {
+        return false;
     }
-    n = i;
-  }
-  return 0 === u ? (a.push(e.charAt((3 & n) << 4)), a.push("==")) : 1 ===
-    u && (a.push(e.charAt((15 & n) << 2)), a.push("=")), a.join("");
-}
+    for (var o = 0; o < t.length; o++) {
+        var i = t.charCodeAt(o);
+        u = o % 3;
+        switch (u) {
+            case 0:
+                a.push(e.charAt(i >> 2));
+                break;
+            case 1:
+                a.push(e.charAt((3 & n) << 4 | i >> 4));
+                break;
+            case 2:
+                a.push(e.charAt((15 & n) << 2 | i >> 6)), a.push(e.charAt(
+                    63 & i));
+        }
+        n = i
+    }
+    return 0 === u ? (a.push(e.charAt((3 & n) << 4)), a.push("==")) : 1 ===
+        u && (a.push(e.charAt((15 & n) << 2)), a.push("=")), a.join("")
+};
 
 function handlers() {
   return {
@@ -51,6 +50,14 @@ function handlers() {
     },
 
     mvpSubmit: function (request, reply) {
+      var ghString;
+      var arr = JSON.parse(request.payload);
+
+      ghString = encodeBase64(arr.join("<br/>"));
+      // arr.forEach(function(x) {
+      //   ghString += (encodeBase64(x + "<br/>"));
+      // });
+
       var github = new gitHubApi({
         // required
         version: "3.0.0",
@@ -76,34 +83,56 @@ function handlers() {
         // id: 37860032,
         user : "jmnr",
         repo : "mvp-funnel",
-        content: encodeBase64(request.payload),
-        message: "JC 2",
-        path : new Date().getTime() + "".md",
+        content: ghString,
+        message: "testing",
+        path : new Date().getTime() + ".md",
         branch : "test",
       }, function(err, res) {
-        console.log("sent monkey");
+        // mandrill.sendEmail(request); //sends email
       });
 
       reply(true);
     },
 
-    loadHome: function (request, reply) {
+    divLoad: function (request, reply) {
       var divs = '';
+      var move = request.query.key || 0;
+
       redis.get("home", function(err, data) {
         if (err) {
           console.log(err);
         } else {
-          for(var x in data) {
+          console.log(data);
+          // for(var x in data) {
             divs +=
-              '<div class="textbox">' +
-                '<p>' + data[x] + '</p>' +
-                '<textarea></textarea>' +
+              '<div id="div' + move + '" class="current" class="textbox">' +
+                '<p id="question">' + data["div" + move] + '</p>' +
+                '<textarea id="answer"></textarea>' +
               '</div>';
-          }
-          reply.view("index", {body: divs});
+          // }
+          console.log(divs);
+          reply(divs);
         }
       });
     },
+
+    // loadHome: function (request, reply) {
+    //   var divs = '';
+    //   redis.get("home", function(err, data) {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       // for(var x in data) {
+    //         divs +=
+    //           '<div id="div0" class="current" class="textbox">' +
+    //             '<p>' + data.div0 + '</p>' +
+    //             '<textarea></textarea>' +
+    //           '</div>';
+    //       // }
+    //       reply.view("index", {body: divs});
+    //     }
+    //   });
+    // },
 
     loadSettings: function (request, reply) {
       var divs = '';
