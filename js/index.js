@@ -49,7 +49,7 @@ $("#submit").click(function(){
       }
     }
   };
-  
+
   xhr.send(JSON.stringify(dataObj));
 });
 
