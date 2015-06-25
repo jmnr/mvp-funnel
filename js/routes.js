@@ -73,12 +73,10 @@ module.exports = [
   //   }
   // },
   {
-    method : 'GET',
-    path : '/feed',
-    handler: function (request, reply) {
-      reply.file('views/feed.html');
-    }
-  },
+    method : 'POST',
+    path : '/settingsLogin',
+    handler: settingsLogin
+  }
   // {
   //   method :'GET',
   //   path : '/logout',
