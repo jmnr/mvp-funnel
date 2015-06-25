@@ -41,9 +41,6 @@ server.connection({ port: process.env.PORT || 8000 });
         id: '2133d32a'
     }
 };
-console.log(process.env.ADMIN_PASSWORD_PART1);
-console.log('$'+process.env.ADMIN_PASSWORD_PART1+'$'+process.env.ADMIN_PASSWORD_PART2+'$'+process.env.ADMIN_PASSWORD_PART3);
-
 
 var validate = function (username, password, callback) {
     var user = users[username];
