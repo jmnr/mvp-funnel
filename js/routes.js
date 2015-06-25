@@ -1,3 +1,6 @@
+var Bcrypt = require('bcrypt');
+var Hapi = require('hapi');
+var Basic = require('hapi-auth-basic');
 var handlers = require('./handlers.js')();
 
 module.exports = [
@@ -23,7 +26,10 @@ module.exports = [
   {
     method: 'GET',
     path: '/settings',
-    handler: handlers.loadSettings
+    config:{
+      auth: 'simple',
+      handler: handlers.loadSettings
+    }
   },
   {
     method: 'POST',
