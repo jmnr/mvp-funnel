@@ -1,6 +1,8 @@
 var redis = require('./redisAdaptor')({connection: require('redis')}),
     mandrill = require('./mandrill.js'),
     gitHubApi = require("github");
+    //pwPromt = require('./pwPromt.js');
+
 
 function encodeBase64(text) {
   var u;
