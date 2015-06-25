@@ -95,23 +95,34 @@ function handlers() {
     },
 
     divLoad: function (request, reply) {
-      var divs = '';
       var move = request.query.key || 0;
 
       redis.get("home", function(err, data) {
         if (err) {
           console.log(err);
         } else {
-          console.log(data);
-          // for(var x in data) {
-            divs +=
+          if(!data["div" + move]) {
+            reply(
+              '<div id="div' + move + '" class="current" class="end">' +
+                '<p>Thanks for your application, we\'ll be in touch soon!</p>' +
+              '</div>' +
+              '<button id="previous" class="button">PREVIOUS</button>' +
+              '<button id="submit" class="button">SUBMIT</button>'
+            );
+          } else {
+            var out =
               '<div id="div' + move + '" class="current" class="textbox">' +
                 '<p id="question">' + data["div" + move] + '</p>' +
                 '<textarea id="answer"></textarea>' +
               '</div>';
-          // }
-          console.log(divs);
-          reply(divs);
+
+            if(move === "0") {
+              reply(out + '<button id="next" class="button">NEXT</button>');
+            } else {
+              reply(out + '<button id="previous" class="button">PREVIOUS</button>' +
+              '<button id="next" class="button">NEXT</button>');
+            }
+          }
         }
       });
     },

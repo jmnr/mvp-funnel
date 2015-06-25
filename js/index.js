@@ -22,7 +22,7 @@ window.onload = function () {
   xhr.send();
 };
 
-$("#settings").click(function(){
+$('body').on('click', '#settings', function(){
   window.location.replace("/settings");
 });
 
@@ -53,10 +53,12 @@ $("#submit").click(function(){
   xhr.send(JSON.stringify(dataObj));
 });
 
-$("#previous").click(function(){
-  dataUpdate();
+$('body').on('click', '#previous', function(){
+  if(!document.getElementsByClassName("end")) {
+    dataUpdate();
+  }
 
-  var divNum = Number(document.getElementsByClassName("current")[0].id[3]) - 1;
+  divNum = Number(document.getElementsByClassName("current")[0].id[3]) - 1;
   divNum = divNum === -1 ? 0 : divNum;
   console.log(divNum);
   var xhr = new XMLHttpRequest();
@@ -66,8 +68,9 @@ $("#previous").click(function(){
   xhr.onreadystatechange = function(){
     if(xhr.readyState === 4){
       if(xhr.status === 200){
-        $("#input").html(xhr.responseText);
-        $("#answer").val(dataObj[document.getElementById("question").textContent]);
+        $("#input").html(xhr.responseText, function() {
+          $("#answer").val(dataObj[document.getElementById("question").textContent]);
+        });
       }
       else{
         alert("Error");
@@ -78,7 +81,7 @@ $("#previous").click(function(){
   xhr.send();
 });
 
-$("#next").click(function(){
+$('body').on('click', '#next', function(){
   dataUpdate();
 
   var divNum = Number(document.getElementsByClassName("current")[0].id[3]) + 1;
@@ -90,8 +93,9 @@ $("#next").click(function(){
   xhr.onreadystatechange = function(){
     if(xhr.readyState === 4){
       if(xhr.status === 200){
-        $("#input").html(xhr.responseText);
-        $("#answer").val(dataObj[document.getElementById("question").textContent]);
+        $("#input").html(xhr.responseText, function() {
+          $("#answer").val(dataObj[document.getElementById("question").textContent]);
+        });
       }
       else{
         alert("Error");
