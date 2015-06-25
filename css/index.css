@@ -12,11 +12,15 @@ body {
   margin: 20px;
   padding: 20px;
   padding-top: 220px;
-
   text-align: center;
   color: white;
 }
 
+textarea{
+  border-radius:25px;
+  border: none;
+  padding: 15px;
+}
 .button {
   background-color: #333333;
   border: none;
