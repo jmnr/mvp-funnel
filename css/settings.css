@@ -3,8 +3,8 @@
 }*/
 
 body {
-  background-color: #94D4FF;
-  font-family: 'Raleway', sans-serif;
+  background-color: #717B7F;
+  font-family: 'Open Sans', sans-serif;
 }
 
 textarea {
@@ -13,7 +13,7 @@ textarea {
 }
 
 #content {
-  background-color: white;
+  background-color: #717B7F;
   margin: 20px;
   padding: 20px;
   text-align: center;

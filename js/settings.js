@@ -24,7 +24,7 @@ $("#subtract").click(function(){
   $("#content div:last-child").remove();
 });
 
-$("#add").click(function(){
+$("#addText").click(function(){
   $("#content").append(
     '<div>' +
       '<textarea>' +
