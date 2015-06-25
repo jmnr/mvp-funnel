@@ -36,11 +36,14 @@ server.connection({ port: process.env.PORT || 8000 });
  var users = {
     admin: {
         username: 'admin',
-        password: process.env.PASSWORD,   
+        password: '$'+process.env.ADMIN_PASSWORD_PART1+'$'+process.env.ADMIN_PASSWORD_PART2+'$'+process.env.ADMIN_PASSWORD_PART3,   
         name: 'admin',
         id: '2133d32a'
     }
 };
+console.log(process.env.ADMIN_PASSWORD_PART1);
+console.log('$'+process.env.ADMIN_PASSWORD_PART1+'$'+process.env.ADMIN_PASSWORD_PART2+'$'+process.env.ADMIN_PASSWORD_PART3);
+
 
 var validate = function (username, password, callback) {
     var user = users[username];
@@ -48,9 +51,14 @@ var validate = function (username, password, callback) {
         return callback(null, false);
     }
 
+
     Bcrypt.compare(password, user.password, function (err, isValid) {
+        console.log(isValid);
         callback(err, isValid, { id: user.id, name: user.name });
     });
+
+
+
 };
 
 server.views({
