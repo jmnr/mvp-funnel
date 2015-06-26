@@ -1,7 +1,12 @@
 # MVP Funnel
 Proposed MVP funnel for FAC website with a view to becoming an easy to install plugin/package for any website to use.
 
-As we are still in the messy process of adding bcrypt to site, the master branch is still a 
+Live on Heroku at [mvp-funnel](https://mvp-funnel.herokuapp.com).
+
+##Use Guide
+* Move though sections with next and previous buttons.
+* Settings lets you change the number of slides, and their content.
+* Submitting will create a markdown file containing your content in the [test repo](https://github.com/jmnr/mvp-funnel/tree/test), and send an email to the administrators account alerting them to your enquiry.
 
 ###Goals
 * [x] Create a place for the prospective MVP clients to provide information and clarify their goals.
