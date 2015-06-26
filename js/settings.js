@@ -24,11 +24,11 @@ $("#submit").click(function(){
   xhr.send(JSON.stringify(dataObj));
 });
 
-$("#subtract").click(function(){
+$("#subtractDiv").click(function(){
   $("#content div:last-child").remove();
 });
 
-$("#addText").click(function(){
+$("#addDiv").click(function(){
   $("#content").append(
     '<div>' +
       '<textarea>' +
