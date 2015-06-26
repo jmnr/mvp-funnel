@@ -52,7 +52,7 @@ function handlers() {
       if(settings.indexOf("<") > -1 || settings.indexOf(">") > -1) {
         settings = settings.replace(/</g, "&lt").replace(/>/g, "&gt");
       }
-      
+
       redis.set("home", JSON.parse(settings), function(err, data) {
         if (err) {
           console.log(err);
@@ -147,8 +147,9 @@ function handlers() {
           
           for(var x in data) {
             divs +=
-              '<div>' +
+              '<div class="settingsTextInput">' +
                 '<textarea>' + data[x] + '</textarea>' +
+                '<button class="delete">X</delete>' +
               '</div>';
           }
           reply.view("settings", {body: divs});

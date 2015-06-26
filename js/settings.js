@@ -40,3 +40,7 @@ $("#addDiv").click(function(){
 $("#home").click(function(){
   window.location.replace("/");
 });
+
+$("body").on("click", ".delete", function(){
+  $(this.parent(".settingsTextInput")).remove();
+});
