@@ -16,12 +16,11 @@ var redisAdaptor = function (config) {
   return {
 
     get: function(key, callback) {
-        client.select(0, function() {
+      client.select(0, function() {
         client.hgetall(key, function(err, data){
           if(err) {
             throw err;
           } else {
-            console.log('data', data);
             callback(err, data);
           }
         });

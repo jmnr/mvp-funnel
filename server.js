@@ -17,13 +17,12 @@ server.connection({ port: process.env.PORT || 8000 });
 var validate = function (username, password, callback) {
  
  var hashedPassword;
+ 
  redis.get('pw', function (err, data) {
-        if (err) {
-          console.log('error: '+err);
-        } else {
-        hashedPassword = data.hash;
-
-        console.log('hashedPassword: '+ hashedPassword);
+    if (err) {
+      console.log('error: '+err);
+    } else {
+    hashedPassword = data.hash;
 
      var users = {
         admin: {
@@ -41,7 +40,6 @@ var validate = function (username, password, callback) {
 
 
     Bcrypt.compare(password, user.password, function (err, isValid) {
-        //console.log(isValid);
         callback(err, isValid, { id: user.id, name: user.name });
     });
 
