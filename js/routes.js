@@ -78,11 +78,11 @@ module.exports = [
   //     }
   //   }
   // },
-  {
+  /*{
     method : 'POST',
     path : '/settingsLogin',
     handler: settingsLogin
-  }
+  }*/
   // {
   //   method :'GET',
   //   path : '/logout',

@@ -7,6 +7,7 @@
     Hapi = require('hapi'),
     Basic = require('hapi-auth-basic'),
     gitHubApi = require("github"),
+    redis = require('./js/redisAdaptor')({connection: require('redis')}),
     server = new hapi.Server();
 
 server.connection({ port: process.env.PORT || 8000 });
@@ -33,16 +34,27 @@ server.connection({ port: process.env.PORT || 8000 });
 
 // });
 
- var users = {
-    admin: {
-        username: 'admin',
-        password: '$'+process.env.ADMIN_PASSWORD_PART1+'$'+process.env.ADMIN_PASSWORD_PART2+'$'+process.env.ADMIN_PASSWORD_PART3,   
-        name: 'admin',
-        id: '2133d32a'
-    }
-};
 
 var validate = function (username, password, callback) {
+ 
+ var hashedPassword;
+ redis.get('pw', function (err, data) {
+        if (err) {
+          console.log('error: '+err);
+        } else {
+        hashedPassword = data.hash;
+
+        console.log('hashedPassword: '+ hashedPassword);
+
+     var users = {
+        admin: {
+            username: 'admin',
+            password: hashedPassword,
+            name: 'admin',
+            id: '2133d32a'
+        }
+    };
+
     var user = users[username];
     if (!user) {
         return callback(null, false);
@@ -50,11 +62,12 @@ var validate = function (username, password, callback) {
 
 
     Bcrypt.compare(password, user.password, function (err, isValid) {
-        console.log(isValid);
+        //console.log(isValid);
         callback(err, isValid, { id: user.id, name: user.name });
     });
 
-
+}
+    });
 
 };
 
