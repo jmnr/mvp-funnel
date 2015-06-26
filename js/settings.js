@@ -25,7 +25,7 @@ $("#submit").click(function(){
 });
 
 $("#addDiv").click(function(){
-  $("#content").append(
+  $("#textInputs").append(
     '<div>' +
       '<textarea>' +
       '</textarea>' +
