@@ -1,19 +1,9 @@
 var redisAdaptor = function (config) {
   "use strict";
 
-  var redis = config.connection;
-  var client;
-  var url = require('url');
-
-  var addID = function() {
-    var ID = "";
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for(var i = 0; i < 10; i++) {
-      ID += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return ID;
-  };
+  var redis = config.connection,
+      client,
+      url = require('url');
 
   if (process.env.REDIS_URL) {
     var redisURL = url.parse(process.env.REDIS_URL);
