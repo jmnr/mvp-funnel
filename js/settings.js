@@ -24,10 +24,6 @@ $("#submit").click(function(){
   xhr.send(JSON.stringify(dataObj));
 });
 
-$("#subtractDiv").click(function(){
-  $("#content div:last-child").remove();
-});
-
 $("#addDiv").click(function(){
   $("#content").append(
     '<div>' +
@@ -39,4 +35,8 @@ $("#addDiv").click(function(){
 
 $("#home").click(function(){
   window.location.replace("/");
+});
+
+$("body").on("click", ".delete", function(){
+  $(this).parent(".settingsTextInput").remove();
 });
