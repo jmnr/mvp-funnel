@@ -48,9 +48,11 @@ function handlers() {
 
     settingsSubmit: function (request, reply) {
       var settings = request.payload;
+
       if(settings.indexOf("<") > -1 || settings.indexOf(">") > -1) {
         settings = settings.replace(/</g, "&lt").replace(/>/g, "&gt");
       }
+      
       redis.set("home", JSON.parse(settings), function(err, data) {
         if (err) {
           console.log(err);
@@ -62,15 +64,16 @@ function handlers() {
     },
 
     mvpSubmit: function (request, reply) {
-      var arr = [];
-      var obj = JSON.parse(request.payload);
+      var arr = [],
+          obj = JSON.parse(request.payload),
+          content;
 
       for(var x in obj) {
         arr.push(x);
         arr.push(obj[x]);
       }
 
-      var ghString = encodeBase64(arr.join("<br/>"));
+      content = arr.join("<br/>");
 
       var github = new gitHubApi({
         version: "3.0.0",
@@ -91,14 +94,14 @@ function handlers() {
       github.repos.createFile({
         user : "jmnr",
         repo : "mvp-funnel",
-        content: ghString,
+        content: encodeBase64(content),
         message: "testing",
         path : new Date().getTime() + ".md",
         branch : "test",
       }, function(err, res) {
-        mandrill.sendEmail(request); //sends email to admin upon submission
+        mandrill.sendEmail(content); //sends email to admin upon submission
       });
-      mandrill.sendEmail(request);
+
       reply(true);
     },
 
@@ -135,30 +138,13 @@ function handlers() {
       });
     },
 
-    // loadHome: function (request, reply) {
-    //   var divs = '';
-    //   redis.get("home", function(err, data) {
-    //     if (err) {
-    //       console.log(err);
-    //     } else {
-    //       // for(var x in data) {
-    //         divs +=
-    //           '<div id="div0" class="current" class="textbox">' +
-    //             '<p>' + data.div0 + '</p>' +
-    //             '<textarea></textarea>' +
-    //           '</div>';
-    //       // }
-    //       reply.view("index", {body: divs});
-    //     }
-    //   });
-    // },
-
     loadSettings: function (request, reply) {
       var divs = '';
       redis.get("home", function(err, data) {
         if (err) {
           console.log(err);
         } else {
+          
           for(var x in data) {
             divs +=
               '<div>' +

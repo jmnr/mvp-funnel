@@ -2,7 +2,7 @@ var mandrill = require("mandrill-api/mandrill"),
     mandrillClient = new mandrill.Mandrill(process.env.MANDRILL_API);
 
 var emailAlert = {
-  sendEmail: function(request) {
+  sendEmail: function(content) {
     var data = {
      'from_email': 'ronan_mccabe@hotmail.com',
      'to': [{
@@ -12,7 +12,7 @@ var emailAlert = {
       }],
      'autotext': 'true',
      'subject': 'New MVP Lead',
-     'html': "Here are the deets."
+     'html': content
     };
 
     mandrillClient.messages.send({"message": data, "async": false}, function(result) {
