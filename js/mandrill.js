@@ -1,5 +1,5 @@
-var mandrill = require("mandrill-api/mandrill");
-var mandrill_client = new mandrill.Mandrill(process.env.MANDRILL_API);
+var mandrill = require("mandrill-api/mandrill"),
+    mandrillClient = new mandrill.Mandrill(process.env.MANDRILL_API);
 
 var emailAlert = {
   sendEmail: function(request) {
@@ -15,7 +15,7 @@ var emailAlert = {
      'html': "Here are the deets."
     };
 
-    mandrill_client.messages.send({"message": data, "async": false}, function(result) {
+    mandrillClient.messages.send({"message": data, "async": false}, function(result) {
     }, function(e) {
        console.log("Error " + e.message);
     });

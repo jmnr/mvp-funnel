@@ -11,16 +11,19 @@ body {
   background-color: #717B7F;
   margin: 20px;
   padding: 20px;
-  padding-top: 220px;
+  padding-top: 75px;
   text-align: center;
   color: white;
 }
 
 textarea{
+  height: 125px;
+  width: 400px;
   border-radius:25px;
   border: none;
   padding: 15px;
 }
+
 .button {
   background-color: #333333;
   border: none;

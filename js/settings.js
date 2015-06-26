@@ -1,9 +1,13 @@
 $("#submit").click(function(){
   var dataObj = {};
   var dataArray = [].slice.call(document.getElementsByTagName("textarea"));
+  
   dataArray.forEach(function(x) {
-    dataObj['div' + Object.keys(dataObj).length] = x.value;
+    if(x.value !== "") {
+      dataObj['div' + Object.keys(dataObj).length] = x.value;
+    }
   });
+
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/settingsSubmit");
   xhr.onreadystatechange = function(){
