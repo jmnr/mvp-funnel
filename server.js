@@ -55,7 +55,10 @@ server.views({
   path: path.join(__dirname, "views")
 });
 
+server.register(Basic, function (err) {
+server.auth.strategy('simple', 'basic', { validateFunc: validate });
 server.route(require('./js/routes.js'));
+});
 
 server.start(function () {
   console.log('Server running at: ' + server.info.uri);

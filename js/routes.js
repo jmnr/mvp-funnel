@@ -23,7 +23,10 @@ module.exports = [
   {
     method: 'GET',
     path: '/settings',
-    handler: handlers.loadSettings
+    config:{
+      auth: 'simple',
+        handler: handlers.loadSettings
+      }
   },
   {
     method: 'POST',
