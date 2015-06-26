@@ -26,9 +26,9 @@ $("#submit").click(function(){
 
 $("#addDiv").click(function(){
   $("#textInputs").append(
-    '<div>' +
-      '<textarea>' +
-      '</textarea>' +
+    '<div class="settingsTextInput">' +
+      '<textarea></textarea>' +
+      '<button class="delete">X</delete>' +
     '</div>'
   );
 });
