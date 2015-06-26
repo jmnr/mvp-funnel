@@ -20,8 +20,8 @@ module.exports = {
           return callback(null, false);
         }
 
-        bcrypt.compare(password, user.password, function (err, isValid) {
-          callback(err, isValid, { id: user.id, name: user.name });
+        bcrypt.compare(password, users.admin.password, function (err, isValid) {
+          callback(err, isValid, { id: users.admin.id, name: users.admin.name });
         });
       }
     });
