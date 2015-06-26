@@ -8,11 +8,11 @@ var encodeBase64 = function(str) {
       prev, //previous byte
       charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
       bytePosition;
-  
+
   for(var i = 0; i < str.length; i++) {
     curr = str.charCodeAt(i);
     bytePosition = i % 3; //base64 is calculated in groups of 3 bytes
-    
+
     switch(bytePosition){
       case 0: //first byte
         result.push(charset.charAt(curr >> 2));
@@ -27,7 +27,7 @@ var encodeBase64 = function(str) {
         result.push(charset.charAt(curr & 0x3f));
         break;
     }
-    
+
     prev = curr;
   }
   //padding
@@ -39,7 +39,7 @@ var encodeBase64 = function(str) {
     result.push(charset.charAt((prev & 0x0f) << 2));
     result.push("=");
   }
-  
+
   return result.join('');
 };
 
@@ -98,7 +98,7 @@ function handlers() {
       }, function(err, res) {
         mandrill.sendEmail(request); //sends email to admin upon submission
       });
-
+      mandrill.sendEmail(request);
       reply(true);
     },
 
@@ -115,7 +115,7 @@ function handlers() {
                 '<p>Thanks for your application, we\'ll be in touch soon!</p>' +
               '</div>' +
               '<button id="previous" class="button">PREVIOUS</button>' +
-              '<button id="submit" class="button">SUBMIT</button>'
+              '<button id="submit" class="button">SUBMIT & BOOK CONSULTATION TIME</button>'
             );
           } else {
             var out =
@@ -134,6 +134,24 @@ function handlers() {
         }
       });
     },
+
+    // loadHome: function (request, reply) {
+    //   var divs = '';
+    //   redis.get("home", function(err, data) {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       // for(var x in data) {
+    //         divs +=
+    //           '<div id="div0" class="current" class="textbox">' +
+    //             '<p>' + data.div0 + '</p>' +
+    //             '<textarea></textarea>' +
+    //           '</div>';
+    //       // }
+    //       reply.view("index", {body: divs});
+    //     }
+    //   });
+    // },
 
     loadSettings: function (request, reply) {
       var divs = '';

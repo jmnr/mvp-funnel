@@ -31,7 +31,7 @@ $('body').on('click', '#submit', function(){
     if(xhr.readyState === 4){
       if(xhr.status === 200){
         alert("Sent!");
-        window.location.replace("https://www.google.com/calendar");
+        window.location.replace("https://calendly.com/joshpitzalis-1");
       }
       else{
         alert("Error");
