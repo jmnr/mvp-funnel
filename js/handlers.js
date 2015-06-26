@@ -1,36 +1,46 @@
 var redis = require('./redisAdaptor')({connection: require('redis')}),
     mandrill = require('./mandrill.js'),
     gitHubApi = require("github");
-    //pwPromt = require('./pwPromt.js');
 
+var encodeBase64 = function(str) {
+  var result = [],
+      curr, //current working byte
+      prev, //previous byte
+      charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
+      bytePosition;
 
-var encodeBase64 = function (t){
-    var u;
-    var e =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    if (0 === t.length) return 'ENTER SOME TEXT!';
-    var n, a = [];
-    if (/([^\u0000-\u00ff])/.test(t) || void 0 === t) {
-        return false;
+  for(var i = 0; i < str.length; i++) {
+    curr = str.charCodeAt(i);
+    bytePosition = i % 3; //base64 is calculated in groups of 3 bytes
+
+    switch(bytePosition){
+      case 0: //first byte
+        result.push(charset.charAt(curr >> 2));
+        break;
+
+      case 1: //second byte
+        result.push(charset.charAt((prev & 3) << 4 | (curr >> 4)));
+        break;
+
+      case 2: //third byte
+        result.push(charset.charAt((prev & 0x0f) << 2 | (curr >> 6)));
+        result.push(charset.charAt(curr & 0x3f));
+        break;
     }
-    for (var o = 0; o < t.length; o++) {
-        var i = t.charCodeAt(o);
-        u = o % 3;
-        switch (u) {
-            case 0:
-                a.push(e.charAt(i >> 2));
-                break;
-            case 1:
-                a.push(e.charAt((3 & n) << 4 | i >> 4));
-                break;
-            case 2:
-                a.push(e.charAt((15 & n) << 2 | i >> 6)), a.push(e.charAt(
-                    63 & i));
-        }
-        n = i
-    }
-    return 0 === u ? (a.push(e.charAt((3 & n) << 4)), a.push("==")) : 1 ===
-        u && (a.push(e.charAt((15 & n) << 2)), a.push("=")), a.join("")
+
+    prev = curr;
+  }
+  //padding
+  if(bytePosition === 0) {
+    result.push(charset.charAt((prev & 3) << 4));
+    result.push("==");
+  }
+  else if(bytePosition === 1) {
+    result.push(charset.charAt((prev & 0x0f) << 2));
+    result.push("=");
+  }
+
+  return result.join('');
 };
 
 function handlers() {
@@ -63,16 +73,13 @@ function handlers() {
       var ghString = encodeBase64(arr.join("<br/>"));
 
       var github = new gitHubApi({
-        // required
         version: "3.0.0",
-        // optional
         debug: true,
         protocol: "https",
-        host: "api.github.com", // should be api.github.com for GitHub
-        // pathPrefix: "/api/v3", // for some GHEs; none for GitHub
+        host: "api.github.com",
         timeout: 5000,
         headers: {
-          "user-agent": "mvp-funnel-App" // GitHub is happy with a unique user agent
+          "user-agent": "mvp-funnel-App"
         }
       });
 
@@ -82,9 +89,6 @@ function handlers() {
       });
 
       github.repos.createFile({
-        // headers: Optional. Key/ value pair of request headers to pass along with the HTTP request.
-        // Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
-        // id: 37860032,
         user : "jmnr",
         repo : "mvp-funnel",
         content: ghString,
@@ -92,9 +96,9 @@ function handlers() {
         path : new Date().getTime() + ".md",
         branch : "test",
       }, function(err, res) {
-        // mandrill.sendEmail(request); //sends email
+        mandrill.sendEmail(request); //sends email to admin upon submission
       });
-
+      mandrill.sendEmail(request);
       reply(true);
     },
 
@@ -111,7 +115,7 @@ function handlers() {
                 '<p>Thanks for your application, we\'ll be in touch soon!</p>' +
               '</div>' +
               '<button id="previous" class="button">PREVIOUS</button>' +
-              '<button id="submit" class="button">SUBMIT</button>'
+              '<button id="submit" class="button">SUBMIT & BOOK CONSULTATION TIME</button>'
             );
           } else {
             var out =
