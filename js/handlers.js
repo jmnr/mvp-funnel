@@ -88,26 +88,46 @@ function handlers() {
     },
 
     loadHome: function (request, reply) {
-     var divs = '';
+     var div = '';
      redis.get("home", function(err, data) {
        if (err) {
          console.log(err);
        } else {
-         console.log();
-         for(var x in data) {
-           divs +=
-             '<div class="textbox">' +
-               '<p>' + data[x] + '</p>' +
-               '<textarea></textarea>' +
-             '</div>';
-         }
-         reply.view("index", {body: divs});
+         var keys = Object.keys(data);
+         div +=
+           '<div class="textbox">' +
+             '<p id="question">' + data[keys[0]] + '</p>' +
+             '<textarea></textarea>' +
+           '</div>';
+         reply.view("index", {body: div});
        }
      });
    },
 
-    // loadNext: function (request, reply) {
-    // },
+    loadNext: function (request, reply) {
+      var div = '';
+      var questionNumber = 0;
+      redis.get("home", function(err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          var keys = Object.keys(data);
+          questionNumber ++;
+          if (data[keys[questionNumber]]) {
+            div +=
+              '<div id="questionContainer">' +
+                '<div class="textbox">' +
+                  '<p id="question">' + data[keys[questionNumber]] + '</p>' +
+                  '<textarea></textarea>' +
+                '</div>' +
+              '</div>';
+            reply.view("index", {body: div});
+          } else {
+            console.log("there are no more questions");
+          }
+        }
+      });
+    },
 
     loadSettings: function (request, reply) {
       var divs = '';

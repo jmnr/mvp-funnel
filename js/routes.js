@@ -15,6 +15,11 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/next',
+    handler: handlers.loadNext
+  },
+  {
+    method: 'GET',
     path: '/settings',
     handler: handlers.loadSettings
   },
