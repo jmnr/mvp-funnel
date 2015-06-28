@@ -42,5 +42,5 @@ Point your browser to localhost:8000
 ###Stretch Goals
 * [ ] Tests.
 * [ ] Varied input like file upload, checkbox questions etc.
-* [ ] Admin authentication for settings page.
+* [x] Admin authentication for settings page.
 * [ ] Incorporation to the Founders & Coders website.
